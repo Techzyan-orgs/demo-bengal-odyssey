@@ -91,28 +91,28 @@ export default function PackageDetailPage() {
   ];
 
   return (
-    <div className="pt-20 pb-20 bg-stone-950 text-stone-100 min-h-screen">
+    <div className="pb-20 bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100 min-h-screen transition-colors duration-200">
       {/* 1. Hero Multi-Image Showcase */}
-      <div className="relative bg-stone-900 border-b border-stone-800">
+      <div className="relative bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs text-stone-400 mb-4">
-            <Link href="/" className="hover:text-amber-400">
+          <div className="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 mb-4">
+            <Link href="/" className="hover:text-amber-600 dark:hover:text-amber-400">
               Home
             </Link>
             <span>/</span>
-            <Link href="/packages" className="hover:text-amber-400">
+            <Link href="/packages" className="hover:text-amber-600 dark:hover:text-amber-400">
               Packages
             </Link>
             <span>/</span>
             <Link
               href={`/packages?destination=${pkg.destination}`}
-              className="hover:text-amber-400 text-stone-300"
+              className="hover:text-amber-600 dark:hover:text-amber-400 text-stone-700 dark:text-stone-300"
             >
               {pkg.destinationLabel}
             </Link>
             <span>/</span>
-            <span className="text-amber-400 truncate max-w-[200px]">{pkg.title}</span>
+            <span className="text-amber-600 dark:text-amber-400 truncate max-w-[200px]">{pkg.title}</span>
           </div>
 
           {/* Main Visual Slider & Gallery Grid */}
@@ -167,7 +167,7 @@ export default function PackageDetailPage() {
                   className={`relative flex-1 min-w-[120px] aspect-[16/10] rounded-xl overflow-hidden border-2 transition-all ${
                     idx === activeImageIndex
                       ? 'border-amber-400 ring-2 ring-amber-400/40'
-                      : 'border-stone-800 opacity-70 hover:opacity-100'
+                      : 'border-stone-300 dark:border-stone-800 opacity-70 hover:opacity-100'
                   }`}
                 >
                   <SafeImage
@@ -182,21 +182,21 @@ export default function PackageDetailPage() {
               ))}
 
               {/* Quick stats mini card */}
-              <div className="hidden lg:flex flex-col justify-center p-4 rounded-xl bg-stone-800/80 border border-stone-700/70 text-xs space-y-1">
-                <div className="flex items-center justify-between text-stone-300">
+              <div className="hidden lg:flex flex-col justify-center p-4 rounded-xl bg-stone-100 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700/70 text-xs space-y-1 transition-colors">
+                <div className="flex items-center justify-between text-stone-600 dark:text-stone-300">
                   <span>Duration</span>
-                  <strong className="text-white font-bold">{pkg.duration}</strong>
+                  <strong className="text-stone-900 dark:text-white font-bold">{pkg.duration}</strong>
                 </div>
-                <div className="flex items-center justify-between text-stone-300">
+                <div className="flex items-center justify-between text-stone-600 dark:text-stone-300">
                   <span>Rating</span>
-                  <span className="flex items-center gap-1 text-amber-400 font-bold">
+                  <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400 font-bold">
                     <Star className="w-3.5 h-3.5 fill-amber-400" />
                     {pkg.rating} ({pkg.reviewCount} reviews)
                   </span>
                 </div>
-                <div className="flex items-center justify-between text-stone-300 pt-1 border-t border-stone-700">
+                <div className="flex items-center justify-between text-stone-600 dark:text-stone-300 pt-1 border-t border-stone-200 dark:border-stone-700">
                   <span>Starting From</span>
-                  <span className="text-amber-400 font-extrabold text-sm">
+                  <span className="text-amber-600 dark:text-amber-400 font-extrabold text-sm">
                     {formatINR(effectivePrice)}
                   </span>
                 </div>
@@ -207,19 +207,19 @@ export default function PackageDetailPage() {
       </div>
 
       {/* 2. Quick Overview Ribbon */}
-      <section className="bg-stone-900 border-b border-stone-800 py-6">
+      <section className="bg-stone-100 dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 py-6 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
             {/* Spec 1: Trek Difficulty or Activity Level */}
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20 shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-500/20 shrink-0">
                 <Compass className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-[11px] text-stone-400 uppercase tracking-wider block font-semibold">
+                <span className="text-[11px] text-stone-500 dark:text-stone-400 uppercase tracking-wider block font-semibold">
                   {pkg.trekSpecs ? 'Trek Grade' : 'Activity Pace'}
                 </span>
-                <span className="font-bold text-sm text-stone-100">
+                <span className="font-bold text-sm text-stone-900 dark:text-stone-100">
                   {pkg.trekSpecs ? pkg.trekSpecs.difficulty : 'Moderate Explorer'}
                 </span>
               </div>
@@ -227,14 +227,14 @@ export default function PackageDetailPage() {
 
             {/* Spec 2: Altitude or Distance */}
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20 shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center border border-amber-500/20 shrink-0">
                 <MapPin className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-[11px] text-stone-400 uppercase tracking-wider block font-semibold">
+                <span className="text-[11px] text-stone-500 dark:text-stone-400 uppercase tracking-wider block font-semibold">
                   {pkg.trekSpecs ? 'Peak Altitude' : 'Locations'}
                 </span>
-                <span className="font-bold text-sm text-stone-100">
+                <span className="font-bold text-sm text-stone-900 dark:text-stone-100">
                   {pkg.trekSpecs ? pkg.trekSpecs.altitude : `${pkg.locationsCovered.length} Key Hubs`}
                 </span>
               </div>
@@ -242,14 +242,14 @@ export default function PackageDetailPage() {
 
             {/* Spec 3: Ideal Season */}
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20 shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center border border-cyan-500/20 shrink-0">
                 <Calendar className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-[11px] text-stone-400 uppercase tracking-wider block font-semibold">
+                <span className="text-[11px] text-stone-500 dark:text-stone-400 uppercase tracking-wider block font-semibold">
                   Optimal Season
                 </span>
-                <span className="font-bold text-sm text-stone-100">
+                <span className="font-bold text-sm text-stone-900 dark:text-stone-100">
                   Oct – May (Clear Vistas)
                 </span>
               </div>
@@ -257,7 +257,7 @@ export default function PackageDetailPage() {
 
             {/* Spec 4: Assigned Captain mini preview */}
             <div className="flex items-center gap-3">
-              <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-amber-400 shrink-0">
+              <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-amber-500 shrink-0">
                 <SafeImage
                   src={pkg.assignedCaptain.avatar}
                   alt={pkg.assignedCaptain.name}
@@ -267,10 +267,10 @@ export default function PackageDetailPage() {
                 />
               </div>
               <div>
-                <span className="text-[11px] text-stone-400 uppercase tracking-wider block font-semibold">
+                <span className="text-[11px] text-stone-500 dark:text-stone-400 uppercase tracking-wider block font-semibold">
                   Assigned Captain
                 </span>
-                <span className="font-bold text-sm text-stone-100">
+                <span className="font-bold text-sm text-stone-900 dark:text-stone-100">
                   {pkg.assignedCaptain.name}
                 </span>
               </div>
@@ -285,21 +285,21 @@ export default function PackageDetailPage() {
           {/* Left Column: Itinerary, Included Activities, Inclusions/Exclusions, Captain Profile */}
           <div className="lg:col-span-8 space-y-12">
             {/* Overview / Story */}
-            <section className="bg-stone-900 border border-stone-800 rounded-2xl p-6 sm:p-8 space-y-4">
-              <div className="text-xs uppercase tracking-wider font-bold text-amber-400">
+            <section className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-6 sm:p-8 space-y-4 shadow-sm transition-colors">
+              <div className="text-xs uppercase tracking-wider font-bold text-amber-600 dark:text-amber-400">
                 About This Expedition
               </div>
-              <h2 className="text-2xl font-bold text-white">
+              <h2 className="text-2xl font-bold text-stone-900 dark:text-white">
                 The Bengal Odyssey Experience
               </h2>
-              <p className="text-sm text-stone-300 leading-relaxed">
+              <p className="text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
                 {pkg.summary}
               </p>
               <div className="flex flex-wrap gap-2 pt-2">
                 {pkg.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs font-medium text-amber-300 bg-amber-950/60 border border-amber-800/60 px-3 py-1 rounded-lg"
+                    className="text-xs font-medium text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800/60 px-3 py-1 rounded-lg"
                   >
                     {tag}
                   </span>
@@ -311,14 +311,14 @@ export default function PackageDetailPage() {
             <section className="space-y-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-xs uppercase tracking-wider font-bold text-amber-400">
+                  <span className="text-xs uppercase tracking-wider font-bold text-amber-600 dark:text-amber-400">
                     Day-Wise Plan
                   </span>
-                  <h2 className="text-2xl font-bold text-white mt-1">
+                  <h2 className="text-2xl font-bold text-stone-900 dark:text-white mt-1">
                     Detailed Journey Itinerary
                   </h2>
                 </div>
-                <span className="text-xs text-stone-400 font-mono">
+                <span className="text-xs text-stone-500 dark:text-stone-400 font-mono">
                   {pkg.days} Days · {pkg.nights} Nights
                 </span>
               </div>
@@ -329,28 +329,28 @@ export default function PackageDetailPage() {
                   return (
                     <div
                       key={day.day}
-                      className="border border-stone-800 rounded-2xl overflow-hidden bg-stone-900/80 transition-all"
+                      className="border border-stone-200 dark:border-stone-800 rounded-2xl overflow-hidden bg-white dark:bg-stone-900/80 shadow-sm transition-all"
                     >
                       <button
                         onClick={() => setActiveDayTab(isOpen ? 0 : day.day)}
-                        className="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-stone-800/60 transition-colors"
+                        className="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-stone-50 dark:hover:bg-stone-800/60 transition-colors"
                       >
                         <div className="flex items-center gap-3">
-                          <span className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center font-mono font-bold text-xs shrink-0">
+                          <span className="w-8 h-8 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30 flex items-center justify-center font-mono font-bold text-xs shrink-0">
                             0{day.day}
                           </span>
-                          <span className="font-bold text-sm sm:text-base text-stone-100">
+                          <span className="font-bold text-sm sm:text-base text-stone-900 dark:text-stone-100">
                             {day.title}
                           </span>
                         </div>
-                        <span className="text-xs text-stone-400 font-medium">
+                        <span className="text-xs text-stone-500 dark:text-stone-400 font-medium">
                           {isOpen ? 'Close' : 'View Details'}
                         </span>
                       </button>
 
                       {isOpen && (
-                        <div className="px-5 pb-5 pt-1 space-y-4 border-t border-stone-800 text-xs animate-fade-in">
-                          <p className="text-stone-300 leading-relaxed text-sm">
+                        <div className="px-5 pb-5 pt-1 space-y-4 border-t border-stone-200 dark:border-stone-800 text-xs animate-fade-in">
+                          <p className="text-stone-600 dark:text-stone-300 leading-relaxed text-sm">
                             {day.description}
                           </p>
 
@@ -359,9 +359,9 @@ export default function PackageDetailPage() {
                             {day.highlights.map((hl, i) => (
                               <span
                                 key={i}
-                                className="px-2.5 py-1 rounded-md bg-stone-800 text-stone-300 text-xs flex items-center gap-1.5"
+                                className="px-2.5 py-1 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 text-xs flex items-center gap-1.5"
                               >
-                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                                 {hl}
                               </span>
                             ))}
@@ -369,17 +369,17 @@ export default function PackageDetailPage() {
 
                           {/* Meals & Stay */}
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
-                            <div className="p-3 rounded-xl bg-stone-950 border border-stone-800">
-                              <span className="text-[10px] uppercase font-bold text-amber-400 block mb-0.5">
+                            <div className="p-3 rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800">
+                              <span className="text-[10px] uppercase font-bold text-amber-700 dark:text-amber-400 block mb-0.5">
                                 Meals Provided
                               </span>
-                              <span className="text-stone-200">{day.meals}</span>
+                              <span className="text-stone-800 dark:text-stone-200">{day.meals}</span>
                             </div>
-                            <div className="p-3 rounded-xl bg-stone-950 border border-stone-800">
-                              <span className="text-[10px] uppercase font-bold text-emerald-400 block mb-0.5">
+                            <div className="p-3 rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800">
+                              <span className="text-[10px] uppercase font-bold text-emerald-700 dark:text-emerald-400 block mb-0.5">
                                 Overnight Stay
                               </span>
-                              <span className="text-stone-200">{day.stay}</span>
+                              <span className="text-stone-800 dark:text-stone-200">{day.stay}</span>
                             </div>
                           </div>
                         </div>
@@ -391,20 +391,20 @@ export default function PackageDetailPage() {
             </section>
 
             {/* Included Activities Checklist */}
-            <section className="bg-stone-900 border border-stone-800 rounded-2xl p-6 sm:p-8 space-y-4">
-              <div className="text-xs uppercase tracking-wider font-bold text-amber-400">
+            <section className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-6 sm:p-8 space-y-4 shadow-sm transition-colors">
+              <div className="text-xs uppercase tracking-wider font-bold text-amber-600 dark:text-amber-400">
                 Signature Experiences
               </div>
-              <h2 className="text-xl font-bold text-white">
+              <h2 className="text-xl font-bold text-stone-900 dark:text-white">
                 Included Activities & Permits
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 {pkg.includedActivities.map((act, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-2.5 p-3 rounded-xl bg-stone-950 border border-stone-800 text-xs text-stone-200"
+                    className="flex items-start gap-2.5 p-3 rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 text-xs text-stone-800 dark:text-stone-200"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                     <span>{act}</span>
                   </div>
                 ))}
@@ -413,43 +413,43 @@ export default function PackageDetailPage() {
 
             {/* Inclusions & Exclusions */}
             <section className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 space-y-3">
-                <h3 className="font-bold text-sm text-emerald-400 flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-6 space-y-3 shadow-sm transition-colors">
+                <h3 className="font-bold text-sm text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   What is Included
                 </h3>
-                <ul className="space-y-2 text-xs text-stone-300">
+                <ul className="space-y-2 text-xs text-stone-600 dark:text-stone-300">
                   {pkg.inclusions.map((inc, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <span className="text-emerald-400 font-bold">•</span>
+                      <span className="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
                       <span>{inc}</span>
                     </li>
                   ))}
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-400 font-bold">•</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
                     <span>All entry taxes, tolls and forest department clearances</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-400 font-bold">•</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
                     <span>24/7 dedicated trek dispatch coordination</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 space-y-3">
-                <h3 className="font-bold text-sm text-rose-400 flex items-center gap-1.5">
-                  <XCircle className="w-4 h-4 text-rose-400" />
+              <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-6 space-y-3 shadow-sm transition-colors">
+                <h3 className="font-bold text-sm text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
+                  <XCircle className="w-4 h-4 text-rose-600 dark:text-rose-400" />
                   What is Excluded
                 </h3>
-                <ul className="space-y-2 text-xs text-stone-300">
+                <ul className="space-y-2 text-xs text-stone-600 dark:text-stone-300">
                   {pkg.exclusions.map((exc, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <span className="text-rose-400 font-bold">•</span>
+                      <span className="text-rose-600 dark:text-rose-400 font-bold">•</span>
                       <span>{exc}</span>
                     </li>
                   ))}
                   <li className="flex items-start gap-2">
-                    <span className="text-rose-400 font-bold">•</span>
+                    <span className="text-rose-600 dark:text-rose-400 font-bold">•</span>
                     <span>Personal expenses, laundry, tips for drivers & porters</span>
                   </li>
                 </ul>
@@ -457,7 +457,7 @@ export default function PackageDetailPage() {
             </section>
 
             {/* Designated Captain Profile Card */}
-            <section className="bg-stone-900 border border-stone-800 rounded-2xl p-6 sm:p-8">
+            <section className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-6 sm:p-8 shadow-sm transition-colors">
               <div className="flex flex-col sm:flex-row gap-6 items-start">
                 <div className="relative w-24 h-24 rounded-2xl overflow-hidden border-2 border-amber-400/80 shrink-0 shadow-lg">
                   <SafeImage
@@ -469,24 +469,24 @@ export default function PackageDetailPage() {
                   />
                 </div>
                 <div className="space-y-2 flex-1">
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-amber-400">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
                     Lead Expedition Captain
                   </div>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl font-bold text-stone-900 dark:text-white">
                     {pkg.assignedCaptain.name} ({pkg.assignedCaptain.bengaliName})
                   </h3>
-                  <div className="text-xs text-emerald-400 font-medium">
+                  <div className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">
                     {pkg.assignedCaptain.role} · {pkg.assignedCaptain.experience}
                   </div>
-                  <p className="text-xs text-stone-300 leading-relaxed">
+                  <p className="text-xs text-stone-600 dark:text-stone-300 leading-relaxed">
                     {pkg.assignedCaptain.bio}
                   </p>
-                  <div className="pt-2 flex flex-wrap gap-2 text-[11px] text-stone-400">
-                    <span>Spoken Dialects:</span>
+                  <div className="pt-2 flex flex-wrap gap-2 text-[11px] text-stone-500 dark:text-stone-400">
+                    <span className="font-semibold text-stone-700 dark:text-stone-300">Spoken Dialects:</span>
                     {pkg.assignedCaptain.dialects.map((lang) => (
                       <span
                         key={lang}
-                        className="px-2 py-0.5 rounded bg-stone-800 text-stone-300"
+                        className="px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300"
                       >
                         {lang}
                       </span>
@@ -499,12 +499,12 @@ export default function PackageDetailPage() {
 
           {/* Right Column: Sticky Booking Card & Calendar Batches */}
           <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-2xl space-y-6">
+            <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-6 shadow-xl dark:shadow-2xl space-y-6 transition-colors">
               {/* Pricing Header */}
-              <div className="border-b border-stone-800 pb-4">
-                <div className="text-xs text-stone-400">All-Inclusive Fixed Batch Fare</div>
+              <div className="border-b border-stone-200 dark:border-stone-800 pb-4">
+                <div className="text-xs text-stone-500 dark:text-stone-400">All-Inclusive Fixed Batch Fare</div>
                 <div className="flex items-baseline gap-2 mt-1">
-                  <span className="text-3xl font-extrabold text-amber-400 font-mono">
+                  <span className="text-3xl font-extrabold text-amber-600 dark:text-amber-400 font-mono">
                     {formatINR(effectivePrice)}
                   </span>
                   {pkg.discountPrice && (
@@ -512,9 +512,9 @@ export default function PackageDetailPage() {
                       {formatINR(pkg.basePrice)}
                     </span>
                   )}
-                  <span className="text-xs text-stone-400">/ traveler</span>
+                  <span className="text-xs text-stone-500 dark:text-stone-400">/ traveler</span>
                 </div>
-                <div className="text-[11px] text-emerald-400 font-semibold mt-1 flex items-center gap-1">
+                <div className="text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold mt-1 flex items-center gap-1">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   Guaranteed Departure & 15% Token Lock
                 </div>
@@ -522,7 +522,7 @@ export default function PackageDetailPage() {
 
               {/* Interactive Batch Selector */}
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-stone-300 mb-2">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-2">
                   Select Departure Batch
                 </label>
                 <div className="space-y-2">
@@ -534,12 +534,12 @@ export default function PackageDetailPage() {
                         onClick={() => setSelectedBatchDate(batch.date)}
                         className={`p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-between text-xs ${
                           isSelected
-                            ? 'border-amber-400 bg-amber-500/10 text-white font-semibold'
-                            : 'border-stone-800 bg-stone-950/60 hover:border-stone-700 text-stone-300'
+                            ? 'border-amber-500 bg-amber-500/10 text-stone-900 dark:text-white font-semibold'
+                            : 'border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-950/60 hover:border-stone-300 dark:hover:border-stone-700 text-stone-700 dark:text-stone-300'
                         }`}
                       >
                         <div className="flex items-center gap-2">
-                          <Calendar className={`w-3.5 h-3.5 ${isSelected ? 'text-amber-400' : 'text-stone-400'}`} />
+                          <Calendar className={`w-3.5 h-3.5 ${isSelected ? 'text-amber-600 dark:text-amber-400' : 'text-stone-500 dark:text-stone-400'}`} />
                           <span>{batch.date}</span>
                           {batch.urgent && (
                             <span className="px-1.5 py-0.5 rounded text-[10px] bg-red-600 text-white font-bold">
@@ -547,7 +547,7 @@ export default function PackageDetailPage() {
                             </span>
                           )}
                         </div>
-                        <span className="text-[11px] text-stone-400">
+                        <span className="text-[11px] text-stone-500 dark:text-stone-400">
                           {batch.spots} spots left
                         </span>
                       </div>
@@ -579,7 +579,7 @@ export default function PackageDetailPage() {
               </div>
 
               {/* Trust markers */}
-              <div className="pt-4 border-t border-stone-800 text-[11px] text-stone-400 space-y-1.5">
+              <div className="pt-4 border-t border-stone-200 dark:border-stone-800 text-[11px] text-stone-500 dark:text-stone-400 space-y-1.5">
                 <p>• Verified by Govt of West Bengal Tourism Dept.</p>
                 <p>• 100% full refund on weather-blocked high passes.</p>
                 <p>• Flexible date transfer within 6 months.</p>

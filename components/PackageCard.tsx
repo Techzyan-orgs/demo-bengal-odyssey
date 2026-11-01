@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Clock, MapPin, Users, Compass, ChevronRight, Star, Flame } from 'lucide-react';
+import { Clock, MapPin, Users, Compass, ChevronRight, Star, Flame, Sparkles } from 'lucide-react';
 import { PackageItem } from '@/lib/travel-data';
 import { calculatePackageUrgency, formatINR } from '@/lib/travel-logic';
 import { SafeImage } from './SafeImage';
@@ -51,13 +51,21 @@ export function PackageCard({ pkg, showVacancy = true }: PackageCardProps) {
             </span>
           )}
 
-          {/* Vacancy Indicator */}
-          {showVacancy && pkg.spotsLeft <= 5 && (
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-600/90 text-white backdrop-blur-md shadow-sm">
-              <Users className="w-3 h-3" />
-              Only {pkg.spotsLeft} spots left
-            </span>
-          )}
+          {/* Right Badges: Early Bird and/or Vacancy */}
+          <div className="flex items-center gap-1.5">
+            {pkg.earlyBirdOffer && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-400 text-stone-950 backdrop-blur-md shadow-sm">
+                <Sparkles className="w-3 h-3 fill-stone-950 text-stone-950" />
+                Early Bird
+              </span>
+            )}
+            {showVacancy && pkg.spotsLeft <= 5 && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-600/90 text-white backdrop-blur-md shadow-sm">
+                <Users className="w-3 h-3" />
+                Only {pkg.spotsLeft} spots left
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Bottom Floating Metadata overlay on Image */}

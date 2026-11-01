@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Compass, Calendar, MapPin, Search, ChevronRight, ArrowRight, ShieldCheck, Flame, Users, Sparkles } from 'lucide-react';
+import { Compass, Calendar, MapPin, Search, ChevronRight, ArrowRight, ShieldCheck, Flame, Users, Sparkles, ChevronDown } from 'lucide-react';
 import { DESTINATIONS_DATA } from '@/lib/travel-data';
 import { SafeImage } from './SafeImage';
 
@@ -38,7 +38,7 @@ const HERO_SLIDES = [
   {
     title: 'Untamed Dooars: Elephant Corridors & Rhino Grasslands',
     subheading: 'Morning elephant-back tracking in Jaldapara, Gorumara Jeep core safaris, and tranquil riverside evenings beside the Murti river.',
-    image: 'https://images.unsplash.com/photo-1534567153574-2b12153a87f0?auto=format&fit=crop&w=1920&q=85',
+    image: 'https://images.unsplash.com/photo-1575550959106-5a7defe28b56?auto=format&fit=crop&w=1920&q=85',
     tag: 'Dooars Terai Floodplains',
     gradient: 'from-teal-950/85 via-emerald-950/70 to-slate-950',
     destinationSlug: 'dooars-terai',
@@ -82,7 +82,7 @@ export function HeroSlider() {
   };
 
   return (
-    <section className="relative min-h-[92vh] flex flex-col justify-between pt-24 pb-12 overflow-hidden bg-stone-950 text-white">
+    <section className="relative min-h-[850px] lg:min-h-[calc(100dvh-5.5rem)] flex flex-col justify-between pt-12 sm:pt-16 lg:pt-20 pb-12 sm:pb-16 overflow-hidden bg-stone-950 text-white">
       {/* Background Crossfade Slides */}
       {HERO_SLIDES.map((item, index) => (
         <div
@@ -106,10 +106,10 @@ export function HeroSlider() {
       ))}
 
       {/* Main Hero Copy Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center">
-        <div className="max-w-3xl space-y-5 animate-fade-in">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center py-6 sm:py-8">
+        <div className="max-w-3xl space-y-6 animate-fade-in">
           {/* Badge & Location tag */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-xs text-amber-300 font-semibold shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-xs text-amber-300 font-semibold shadow-sm mb-1">
             <Compass className="w-3.5 h-3.5 text-amber-400 animate-spin-slow" />
             <span>{slide.tag}</span>
           </div>
@@ -125,7 +125,7 @@ export function HeroSlider() {
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-wrap items-center gap-4 pt-3">
+          <div className="flex flex-wrap items-center gap-4 pt-2">
             <Link
               href="/packages"
               className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-sm tracking-wide transition-all shadow-lg hover:shadow-amber-500/30 active:scale-95"
@@ -146,7 +146,7 @@ export function HeroSlider() {
       </div>
 
       {/* Bottom Area: Slide indicators & Quick Trip Search Bar */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-8 sm:mt-12">
         {/* Slide Indicators */}
         <div className="flex items-center gap-2 mb-4">
           {HERO_SLIDES.map((_, idx) => (
@@ -162,19 +162,20 @@ export function HeroSlider() {
         </div>
 
         {/* Quick Search Card */}
-        <div className="bg-stone-900/90 backdrop-blur-xl border border-stone-700/80 rounded-2xl p-4 sm:p-5 shadow-2xl">
+        <div className="bg-white/95 dark:bg-stone-900/90 backdrop-blur-xl border border-stone-200 dark:border-stone-700/80 rounded-2xl p-4 sm:p-5 shadow-2xl transition-colors">
           <form onSubmit={handleQuickSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {/* Destination */}
             <div>
-              <label htmlFor="hero-destination" className="block text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-1">
+              <label htmlFor="hero-destination" className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 dark:text-stone-400 mb-1">
                 Where to?
               </label>
               <div className="relative">
+                <MapPin className="w-4 h-4 text-stone-500 dark:text-stone-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <select
                   id="hero-destination"
                   value={selectedDestination}
                   onChange={(e) => setSelectedDestination(e.target.value)}
-                  className="w-full bg-stone-800 text-white text-xs font-medium rounded-xl px-3 py-2.5 border border-stone-700 focus:outline-none focus:border-amber-400"
+                  className="w-full appearance-none bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-white text-xs font-medium rounded-xl pl-9 pr-8 py-2.5 border border-stone-300 dark:border-stone-700 hover:border-stone-400 dark:hover:border-stone-600 focus:outline-none focus:border-amber-500 dark:focus:border-amber-400 transition-colors cursor-pointer"
                 >
                   <option value="all">All Destinations (West Bengal & Hills)</option>
                   {DESTINATIONS_DATA.map((d) => (
@@ -183,40 +184,45 @@ export function HeroSlider() {
                     </option>
                   ))}
                 </select>
-                <MapPin className="w-4 h-4 text-stone-400 absolute right-3 top-3 pointer-events-none" />
+                <ChevronDown className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
             </div>
 
             {/* Trip Type */}
             <div>
-              <label htmlFor="hero-tripType" className="block text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-1">
+              <label htmlFor="hero-tripType" className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 dark:text-stone-400 mb-1">
                 Trip Style
               </label>
-              <select
-                id="hero-tripType"
-                value={selectedType}
-                onChange={(e) => setSelectedType(e.target.value)}
-                className="w-full bg-stone-800 text-white text-xs font-medium rounded-xl px-3 py-2.5 border border-stone-700 focus:outline-none focus:border-amber-400"
-              >
-                <option value="all">Any Travel Style</option>
-                <option value="vacation-getaway">Vacation Getaway</option>
-                <option value="backpacking-trek">Backpacking Trek</option>
-                <option value="offbeat">Offbeat Exploration</option>
-                <option value="weekend-getaway">Weekend Getaway</option>
-              </select>
+              <div className="relative">
+                <Compass className="w-4 h-4 text-stone-500 dark:text-stone-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <select
+                  id="hero-tripType"
+                  value={selectedType}
+                  onChange={(e) => setSelectedType(e.target.value)}
+                  className="w-full appearance-none bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-white text-xs font-medium rounded-xl pl-9 pr-8 py-2.5 border border-stone-300 dark:border-stone-700 hover:border-stone-400 dark:hover:border-stone-600 focus:outline-none focus:border-amber-500 dark:focus:border-amber-400 transition-colors cursor-pointer"
+                >
+                  <option value="all">Any Travel Style</option>
+                  <option value="vacation-getaway">Vacation Getaway</option>
+                  <option value="backpacking-trek">Backpacking Trek</option>
+                  <option value="offbeat">Offbeat Exploration</option>
+                  <option value="weekend-getaway">Weekend Getaway</option>
+                </select>
+                <ChevronDown className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              </div>
             </div>
 
             {/* Travel Month / Season */}
             <div>
-              <label htmlFor="hero-season" className="block text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-1">
+              <label htmlFor="hero-season" className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 dark:text-stone-400 mb-1">
                 Travel Window
               </label>
               <div className="relative">
+                <Calendar className="w-4 h-4 text-stone-500 dark:text-stone-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <select
                   id="hero-season"
                   value={selectedSeason}
                   onChange={(e) => setSelectedSeason(e.target.value)}
-                  className="w-full bg-stone-800 text-white text-xs font-medium rounded-xl px-3 py-2.5 border border-stone-700 focus:outline-none focus:border-amber-400"
+                  className="w-full appearance-none bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-white text-xs font-medium rounded-xl pl-9 pr-8 py-2.5 border border-stone-300 dark:border-stone-700 hover:border-stone-400 dark:hover:border-stone-600 focus:outline-none focus:border-amber-500 dark:focus:border-amber-400 transition-colors cursor-pointer"
                 >
                   <option value="all">Any Upcoming Month</option>
                   <option value="nov">November (Peak Clear Mountain Vistas)</option>
@@ -224,7 +230,7 @@ export function HeroSlider() {
                   <option value="jan">January (Cool Delta & Coastal Chill)</option>
                   <option value="spring">March - May (Rhododendron Blooms)</option>
                 </select>
-                <Calendar className="w-4 h-4 text-stone-400 absolute right-3 top-3 pointer-events-none" />
+                <ChevronDown className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
             </div>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { DESTINATIONS_DATA, DestinationAccordionItem } from '@/lib/travel-data';
+import { DESTINATIONS_DATA, PACKAGES_DATA, DestinationAccordionItem } from '@/lib/travel-data';
 import { SafeImage } from './SafeImage';
 import { Compass, ArrowRight } from 'lucide-react';
 
@@ -14,6 +14,8 @@ export function DestinationAccordion({
   activeDestination,
   onSelectDestination,
 }: DestinationAccordionProps) {
+  const totalAllPackages = PACKAGES_DATA.length;
+
   return (
     <div className="w-full space-y-3">
       {/* Mobile Horizontal Pill Scroller */}
@@ -23,38 +25,41 @@ export function DestinationAccordion({
           className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
             activeDestination === 'all'
               ? 'bg-amber-500 text-stone-950 shadow-md font-bold'
-              : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
+              : 'bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-300 dark:hover:bg-stone-700'
           }`}
         >
-          All Bengal ({DESTINATIONS_DATA.reduce((acc, curr) => acc + curr.totalPackages, 0)})
+          All Bengal ({totalAllPackages})
         </button>
-        {DESTINATIONS_DATA.map((dest) => (
-          <button
-            key={dest.id}
-            onClick={() => onSelectDestination(dest.slug)}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
-              activeDestination === dest.slug
-                ? 'bg-amber-500 text-stone-950 shadow-md font-bold'
-                : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
-            }`}
-          >
-            {dest.title}
-          </button>
-        ))}
+        {DESTINATIONS_DATA.map((dest) => {
+          const count = PACKAGES_DATA.filter((p) => p.destination === dest.id).length;
+          return (
+            <button
+              key={dest.id}
+              onClick={() => onSelectDestination(dest.slug)}
+              className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
+                activeDestination === dest.slug
+                  ? 'bg-amber-500 text-stone-950 shadow-md font-bold'
+                  : 'bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-300 dark:hover:bg-stone-700'
+              }`}
+            >
+              {dest.title} ({count})
+            </button>
+          );
+        })}
       </div>
 
       {/* Desktop Expansive Accordion Strip */}
-      <div className="hidden md:flex h-64 lg:h-72 w-full gap-2 rounded-2xl overflow-hidden bg-stone-950 p-1.5 shadow-xl border border-stone-800">
+      <div className="hidden md:flex h-64 lg:h-72 w-full gap-2 rounded-2xl overflow-hidden bg-white dark:bg-stone-950 p-1.5 shadow-xl border border-stone-200 dark:border-stone-800 transition-colors">
         {/* "All" reset item */}
         <div
           onClick={() => onSelectDestination('all')}
           className={`relative cursor-pointer transition-all duration-500 ease-out rounded-xl overflow-hidden flex flex-col justify-end p-4 border ${
             activeDestination === 'all'
-              ? 'flex-[2.5] border-amber-500/80 bg-stone-900 shadow-lg'
-              : 'flex-1 hover:flex-[1.3] border-stone-800/80 bg-stone-900/60'
+              ? 'flex-[2.5] border-amber-500/80 bg-stone-100 dark:bg-stone-900 shadow-lg'
+              : 'flex-1 hover:flex-[1.3] border-stone-200 dark:border-stone-800/80 bg-stone-50 dark:bg-stone-900/60'
           }`}
         >
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-900/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-900/80 to-transparent dark:from-stone-950 dark:via-stone-900/80" />
           <div className="relative z-10">
             <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center mb-2 border border-amber-500/30">
               <Compass className="w-4 h-4" />
@@ -62,7 +67,7 @@ export function DestinationAccordion({
             <h4 className="text-sm font-bold text-white whitespace-nowrap">
               All Bengal
             </h4>
-            <p className="text-[11px] text-stone-400 mt-1 line-clamp-2">
+            <p className="text-[11px] text-stone-300 dark:text-stone-400 mt-1 line-clamp-2">
               Browse all tours from sea to summit
             </p>
           </div>
@@ -71,6 +76,7 @@ export function DestinationAccordion({
         {/* Destination Items */}
         {DESTINATIONS_DATA.map((dest) => {
           const isActive = activeDestination === dest.slug;
+          const pkgCount = PACKAGES_DATA.filter((p) => p.destination === dest.id).length;
 
           return (
             <div
@@ -79,7 +85,7 @@ export function DestinationAccordion({
               className={`relative cursor-pointer transition-all duration-500 ease-out rounded-xl overflow-hidden group border ${
                 isActive
                   ? 'flex-[3.5] border-amber-400 shadow-2xl'
-                  : 'flex-1 hover:flex-[1.5] border-stone-800/80'
+                  : 'flex-1 hover:flex-[1.5] border-stone-700/80 dark:border-stone-800/80'
               }`}
             >
               {/* Background Photo */}
@@ -121,7 +127,7 @@ export function DestinationAccordion({
                       {dest.highlight}
                     </span>
                     <span className="inline-flex items-center gap-1 font-bold text-white bg-amber-600/80 px-2.5 py-1 rounded-lg">
-                      <span>{dest.totalPackages} Packages</span>
+                      <span>{pkgCount} Packages</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
@@ -130,7 +136,7 @@ export function DestinationAccordion({
                 // Collapsed Inactive View (Vertical text on desktop)
                 <div className="absolute inset-0 p-3 flex flex-col justify-between text-white">
                   <span className="text-[10px] font-mono text-stone-400 text-right">
-                    0{dest.totalPackages}
+                    {String(pkgCount).padStart(2, '0')}
                   </span>
                   <div className="[writing-mode:vertical-rl] rotate-180 font-bold text-xs tracking-wider text-stone-300 group-hover:text-amber-300 transition-colors uppercase whitespace-nowrap">
                     {dest.title}

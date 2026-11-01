@@ -83,6 +83,9 @@ export interface FilterOptions {
   selectedTags?: string[];
   onlyDeals?: boolean;
   onlyUpcoming?: boolean;
+  onlyFeatured?: boolean;
+  onlyTopRated?: boolean;
+  onlyLuxury?: boolean;
 }
 
 export function filterPackages(packages: PackageItem[], filters: FilterOptions): PackageItem[] {
@@ -109,6 +112,14 @@ export function filterPackages(packages: PackageItem[], filters: FilterOptions):
 
     // Trip type filter
     if (filters.tripTypes && filters.tripTypes.length > 0) {
+      // If user selected weekend getaway, strictly reject packages > 3 days (or > 2 nights)
+      const selectedIncludesWeekend = filters.tripTypes.includes('weekend-getaway');
+      if (selectedIncludesWeekend && !filters.tripTypes.includes(pkg.type)) {
+        return false;
+      }
+      if (pkg.type === 'weekend-getaway' && (pkg.days > 3 || pkg.nights > 2)) {
+        return false;
+      }
       if (!filters.tripTypes.includes(pkg.type)) {
         return false;
       }
@@ -139,14 +150,33 @@ export function filterPackages(packages: PackageItem[], filters: FilterOptions):
       if (!hasAnyTag) return false;
     }
 
-    // Deals filter
-    if (filters.onlyDeals && (!pkg.discountPrice || pkg.discountPrice >= pkg.basePrice)) {
+    // Early-Bird Deals filter (only packages with active early bird offers)
+    if (filters.onlyDeals && !pkg.earlyBirdOffer) {
       return false;
     }
 
     // Upcoming filter
     if (filters.onlyUpcoming && !pkg.isUpcoming) {
       return false;
+    }
+
+    // Featured filter
+    if (filters.onlyFeatured && !pkg.featured) {
+      return false;
+    }
+
+    // Top Rated filter (rating >= 4.9)
+    if (filters.onlyTopRated && pkg.rating < 4.9) {
+      return false;
+    }
+
+    // Luxury filter
+    if (filters.onlyLuxury) {
+      const isLux =
+        pkg.interestCategories.some((c) => c.toLowerCase().includes('luxury') || c.toLowerCase().includes('resort')) ||
+        pkg.tags.some((t) => t.toLowerCase().includes('luxury') || t.toLowerCase().includes('heritage') || t.toLowerCase().includes('royal')) ||
+        (pkg.discountPrice || pkg.basePrice) >= 18000;
+      if (!isLux) return false;
     }
 
     return true;

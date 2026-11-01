@@ -8,19 +8,19 @@ import { SafeImage } from '@/components/SafeImage';
 
 export default function BestSeasonPage() {
   return (
-    <div className="pt-24 pb-20 bg-stone-950 text-stone-100 min-h-screen">
+    <div className="pb-20 bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100 min-h-screen transition-colors duration-200">
       {/* Hero Header */}
-      <section className="border-b border-stone-800 py-16 bg-stone-900/50">
+      <section className="border-b border-stone-200 dark:border-stone-800 py-16 bg-stone-100/60 dark:bg-stone-900/50 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-semibold uppercase tracking-wider border border-amber-500/20">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-semibold uppercase tracking-wider border border-amber-500/20">
               <Sun className="w-3.5 h-3.5" />
               Microclimate & Wildlife Windows
             </div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-stone-900 dark:text-white leading-tight">
               Best Season & Travel Calendar for Bengal
             </h1>
-            <p className="text-base text-stone-300 font-light leading-relaxed">
+            <p className="text-base text-stone-600 dark:text-stone-300 font-normal leading-relaxed">
               From when Royal Bengal Tigers bask on sunny delta mudflats to the exact autumn weeks when Kanchenjunga shines with razor-sharp clarity. Plan your journey aligned with nature’s rhythm.
             </p>
           </div>
@@ -35,7 +35,7 @@ export default function BestSeasonPage() {
           return (
             <section
               key={item.id}
-              className="bg-stone-900 border border-stone-800 rounded-3xl overflow-hidden shadow-2xl transition-all hover:border-stone-700"
+              className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-3xl overflow-hidden shadow-xl dark:shadow-2xl transition-all hover:border-amber-500/40 dark:hover:border-stone-700"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
                 {/* Image Half */}
@@ -70,42 +70,42 @@ export default function BestSeasonPage() {
                 >
                   <div className="space-y-4">
                     <div>
-                      <div className="text-xs uppercase tracking-wider font-bold text-amber-400">
+                      <div className="text-xs uppercase tracking-wider font-bold text-amber-600 dark:text-amber-400">
                         {item.bengaliTitle}
                       </div>
-                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
+                      <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white mt-1">
                         {item.destination}
                       </h2>
                     </div>
 
                     {/* Weather & Temp Pill Ribbon */}
-                    <div className="p-3.5 rounded-xl bg-stone-950 border border-stone-800 flex items-start gap-3 text-xs">
-                      <Thermometer className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                    <div className="p-3.5 rounded-xl bg-stone-100 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 flex items-start gap-3 text-xs transition-colors">
+                      <Thermometer className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-semibold text-stone-200 block">Climate & Temperatures:</span>
-                        <span className="text-stone-400">{item.weather}</span>
+                        <span className="font-semibold text-stone-900 dark:text-stone-200 block">Climate & Temperatures:</span>
+                        <span className="text-stone-600 dark:text-stone-400">{item.weather}</span>
                       </div>
                     </div>
 
                     {/* Why Optimal Narrative */}
                     <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-stone-300 mb-1.5">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-stone-800 dark:text-stone-300 mb-1.5">
                         Why this window is optimal:
                       </h4>
-                      <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-light">
+                      <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
                         {item.whyOptimal}
                       </p>
                     </div>
 
                     {/* Key Activities Checklist */}
                     <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-stone-300 mb-2">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-stone-800 dark:text-stone-300 mb-2">
                         Peak Season Highlights & Activities:
                       </h4>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                         {item.keyActivities.map((act, i) => (
-                          <div key={i} className="flex items-center gap-2 text-stone-200">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                          <div key={i} className="flex items-center gap-2 text-stone-700 dark:text-stone-200">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                             <span>{act}</span>
                           </div>
                         ))}
@@ -114,8 +114,8 @@ export default function BestSeasonPage() {
                   </div>
 
                   {/* Direct Contextual CTA */}
-                  <div className="pt-4 border-t border-stone-800 flex items-center justify-between">
-                    <span className="text-xs text-stone-400">
+                  <div className="pt-4 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between">
+                    <span className="text-xs text-stone-500 dark:text-stone-400">
                       {item.packagesCount} Curated Expedition Batches
                     </span>
 

@@ -33,7 +33,7 @@ export default function CorporatePage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-stone-950 text-stone-100 flex flex-col justify-between pt-24 pb-16">
+    <div className="relative min-h-[calc(100dvh-5.5rem)] bg-stone-950 text-stone-100 flex flex-col justify-between pt-6 sm:pt-10 pb-16">
       {/* Full-Screen Immersive Canvas Background */}
       <div className="absolute inset-0 z-0">
         <SafeImage
@@ -89,16 +89,16 @@ export default function CorporatePage() {
         </div>
 
         {/* Right Column: Floating Glassmorphic Lead Generation Card */}
-        <div className="w-full max-w-lg bg-stone-900/90 backdrop-blur-xl border border-stone-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl">
+        <div className="w-full max-w-lg bg-white/95 dark:bg-stone-900/90 backdrop-blur-xl border border-stone-200 dark:border-stone-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl transition-colors">
           {isSuccess ? (
             <div className="text-center py-8 space-y-4 animate-fade-in">
-              <div className="w-16 h-16 mx-auto rounded-full bg-emerald-900/50 text-emerald-400 flex items-center justify-center border border-emerald-500/40">
+              <div className="w-16 h-16 mx-auto rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-500/40">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
-              <h3 className="text-2xl font-bold text-white">Retreat Proposal Initiated</h3>
-              <p className="text-sm text-stone-300">
-                Thank you, <span className="font-semibold text-white">{contactPerson}</span> from <span className="font-semibold text-white">{companyName}</span>. Your corporate inquiry ticket is{' '}
-                <span className="font-mono font-bold text-amber-400 bg-black/50 px-2 py-0.5 rounded">
+              <h3 className="text-2xl font-bold text-stone-900 dark:text-white">Retreat Proposal Initiated</h3>
+              <p className="text-sm text-stone-600 dark:text-stone-300">
+                Thank you, <span className="font-semibold text-stone-900 dark:text-white">{contactPerson}</span> from <span className="font-semibold text-stone-900 dark:text-white">{companyName}</span>. Your corporate inquiry ticket is{' '}
+                <span className="font-mono font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-black/50 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-500/20">
                   {ticketNumber}
                 </span>
                 . Our Head of Corporate Expeditions will contact you within 2 hours with customized MICE venue decks.
@@ -118,20 +118,20 @@ export default function CorporatePage() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400 block mb-0.5">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 block mb-0.5">
                   Corporate Desk
                 </span>
-                <h2 className="text-xl font-bold text-white">
+                <h2 className="text-xl font-bold text-stone-900 dark:text-white">
                   Bespoke Corporate Retreats & MICE
                 </h2>
-                <p className="text-xs text-stone-400 mt-0.5">
+                <p className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
                   Share your offsite vision for an executive proposal within 24 hours.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="corp-companyName" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-300 mb-1">
+                  <label htmlFor="corp-companyName" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1">
                     Company Name *
                   </label>
                   <input
@@ -141,12 +141,12 @@ export default function CorporatePage() {
                     placeholder="e.g. Tata Consultancy Services"
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
-                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-950 border border-stone-700 text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-100 dark:bg-stone-950 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400 transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="corp-contactPerson" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-300 mb-1">
+                  <label htmlFor="corp-contactPerson" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1">
                     Contact Person *
                   </label>
                   <input
@@ -156,14 +156,14 @@ export default function CorporatePage() {
                     placeholder="e.g. Debjani Sengupta (HR Lead)"
                     value={contactPerson}
                     onChange={(e) => setContactPerson(e.target.value)}
-                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-950 border border-stone-700 text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-100 dark:bg-stone-950 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400 transition-colors"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="corp-email" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-300 mb-1">
+                  <label htmlFor="corp-email" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1">
                     Corporate Email *
                   </label>
                   <input
@@ -173,12 +173,12 @@ export default function CorporatePage() {
                     placeholder="debjani@company.com"
                     value={corporateEmail}
                     onChange={(e) => setCorporateEmail(e.target.value)}
-                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-950 border border-stone-700 text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-100 dark:bg-stone-950 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400 transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="corp-phone" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-300 mb-1">
+                  <label htmlFor="corp-phone" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1">
                     Direct Phone *
                   </label>
                   <input
@@ -188,21 +188,21 @@ export default function CorporatePage() {
                     placeholder="+91 98300 00000"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-950 border border-stone-700 text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-100 dark:bg-stone-950 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400 transition-colors"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="corp-destination" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-300 mb-1">
+                  <label htmlFor="corp-destination" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1">
                     Target Region *
                   </label>
                   <select
                     id="corp-destination"
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
-                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-950 border border-stone-700 text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-100 dark:bg-stone-950 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400 transition-colors"
                   >
                     <option value="darjeeling-hills">Kurseong & Darjeeling Tea Estates</option>
                     <option value="sundarbans">Sundarbans Luxury Riverfront Eco-Resort</option>
@@ -213,14 +213,14 @@ export default function CorporatePage() {
                 </div>
 
                 <div>
-                  <label htmlFor="corp-headcount" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-300 mb-1">
+                  <label htmlFor="corp-headcount" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1">
                     Expected Headcount *
                   </label>
                   <select
                     id="corp-headcount"
                     value={headcount}
                     onChange={(e) => setHeadcount(e.target.value)}
-                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-950 border border-stone-700 text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-100 dark:bg-stone-950 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400 transition-colors"
                   >
                     <option value="15-30">15 – 30 Executives (Board/Leadership)</option>
                     <option value="30-50">30 – 50 People (Core Team)</option>
@@ -232,7 +232,7 @@ export default function CorporatePage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="corp-dates" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-300 mb-1">
+                  <label htmlFor="corp-dates" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1">
                     Tentative Dates *
                   </label>
                   <input
@@ -240,19 +240,19 @@ export default function CorporatePage() {
                     type="date"
                     value={tentativeDates}
                     onChange={(e) => setTentativeDates(e.target.value)}
-                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-950 border border-stone-700 text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-100 dark:bg-stone-950 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400 transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="corp-scope" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-300 mb-1">
+                  <label htmlFor="corp-scope" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1">
                     Event Scope *
                   </label>
                   <select
                     id="corp-scope"
                     value={eventScope}
                     onChange={(e) => setEventScope(e.target.value)}
-                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-950 border border-stone-700 text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3 py-2 text-xs rounded-xl bg-stone-100 dark:bg-stone-950 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400 transition-colors"
                   >
                     <option value="Leadership Summit">Executive Leadership Summit</option>
                     <option value="Team Building">Team Building & Outdoor Survival</option>
@@ -263,7 +263,7 @@ export default function CorporatePage() {
               </div>
 
               <div>
-                <label htmlFor="corp-brief" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-300 mb-1">
+                <label htmlFor="corp-brief" className="block text-[11px] font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1">
                   Specific Objectives or Custom AV Needs
                 </label>
                 <textarea
@@ -272,7 +272,7 @@ export default function CorporatePage() {
                   placeholder="e.g. Need conference hall for 60 pax, sound system, gala dinner with folk baul music, team hiking day."
                   value={customBrief}
                   onChange={(e) => setCustomBrief(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl bg-stone-950 border border-stone-700 text-white focus:outline-none focus:border-amber-400"
+                  className="w-full px-3 py-2 text-xs rounded-xl bg-stone-100 dark:bg-stone-950 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-amber-400 transition-colors"
                 />
               </div>
 

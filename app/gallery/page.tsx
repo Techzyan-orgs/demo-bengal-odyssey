@@ -11,6 +11,7 @@ export default function GalleryPage() {
 
   const categories = [
     'All',
+    'Activities & Expeditions',
     'Wildlife & Jungles',
     'Mountain Treks',
     'Coastal Serenity',
@@ -23,18 +24,18 @@ export default function GalleryPage() {
       : GALLERY_PHOTOS.filter((p) => p.category === selectedCategory);
 
   return (
-    <div className="pt-24 pb-20 bg-stone-950 text-stone-100 min-h-screen">
+    <div className="pb-20 bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100 min-h-screen transition-colors duration-200">
       {/* Header */}
-      <section className="border-b border-stone-800 py-14 bg-stone-900/40">
+      <section className="border-b border-stone-200 dark:border-stone-800 py-14 bg-stone-100/60 dark:bg-stone-900/40 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-semibold uppercase tracking-wider border border-amber-500/20 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-semibold uppercase tracking-wider border border-amber-500/20 mb-3">
             <Camera className="w-3.5 h-3.5" />
             Field Photography Archives
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-stone-900 dark:text-white leading-tight">
             The Bengal Odyssey Visual Chronicle
           </h1>
-          <p className="text-sm text-stone-300 mt-2 font-light">
+          <p className="text-sm text-stone-600 dark:text-stone-300 mt-2 font-normal">
             Real field captures from our expedition leaders, trek photographers, and guest naturalists across the wilderness of West Bengal.
           </p>
 
@@ -48,7 +49,7 @@ export default function GalleryPage() {
                 className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
                   selectedCategory === cat
                     ? 'bg-amber-500 text-stone-950 font-bold shadow-md'
-                    : 'bg-stone-900 text-stone-400 hover:text-white border border-stone-800'
+                    : 'bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white border border-stone-200 dark:border-stone-800 shadow-sm'
                 }`}
               >
                 {cat}
@@ -65,7 +66,7 @@ export default function GalleryPage() {
             <div
               key={photo.id}
               onClick={() => setActivePhoto(photo)}
-              className="relative break-inside-avoid rounded-2xl overflow-hidden bg-stone-900 border border-stone-800 group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+              className="relative break-inside-avoid rounded-2xl overflow-hidden bg-stone-900 border border-stone-200 dark:border-stone-800 group cursor-pointer shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
             >
               <div className={`relative w-full ${photo.aspect}`}>
                 <SafeImage
