@@ -1,0 +1,6 @@
+{
+  "name": "Bengal Odyssey | বঙ্গ অভিযান",
+  "description": "Premier tour and travel agency based in Kolkata, West Bengal. Curated guided expeditions, backpacking treks, wildlife safaris, and corporate retreats across Darjeeling, Dooars, Sundarbans, Puri, Sikkim, and offbeat trails.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
