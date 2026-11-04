@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Building2, Users, Calendar, Send, CheckCircle2, ShieldCheck, Sparkles, MessageCircle, ArrowRight, Award } from 'lucide-react';
+import { Building2, Users, Calendar, Send, CheckCircle2, ShieldCheck, Sparkles, ArrowRight, Award } from 'lucide-react';
 import { SafeImage } from '@/components/SafeImage';
 import { DESTINATIONS_DATA } from '@/lib/travel-data';
+import { WhatsAppIcon } from '@/components/WhatsAppIcon';
 
 export default function CorporatePage() {
   const [companyName, setCompanyName] = useState('');
@@ -110,7 +111,7 @@ export default function CorporatePage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-md"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <WhatsAppIcon className="w-4 h-4 shrink-0" />
                   Fast-Track Discussion on WhatsApp
                 </a>
               </div>

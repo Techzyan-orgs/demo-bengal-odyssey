@@ -6,6 +6,8 @@ import {
   calculateQuotation,
   formatINR,
   generateWhatsAppUrl,
+  isWeekendSchedule,
+  getWeekendScheduleLabel,
 } from './travel-logic';
 import { PACKAGES_DATA } from './travel-data';
 
@@ -93,3 +95,47 @@ test('generateWhatsAppUrl builds valid wa.me URL with encoded message', () => {
   assert.ok(url.startsWith('https://wa.me/919830123456?text='));
   assert.ok(url.includes(encodeURIComponent('Darjeeling Heritage')));
 });
+
+test('isWeekendSchedule correctly identifies Friday and Saturday departures ending by Sunday or Monday', () => {
+  // Friday (2026-11-06) + 3 days -> Ends Sunday (2026-11-08)
+  assert.equal(isWeekendSchedule('2026-11-06', 3), true);
+  assert.equal(getWeekendScheduleLabel('2026-11-06', 3), 'Fri–Sun');
+
+  // Saturday (2026-11-07) + 2 days -> Ends Sunday (2026-11-08)
+  assert.equal(isWeekendSchedule('2026-11-07', 2), true);
+  assert.equal(getWeekendScheduleLabel('2026-11-07', 2), 'Sat–Sun');
+
+  // Saturday (2026-11-07) + 3 days -> Ends Monday (2026-11-09)
+  assert.equal(isWeekendSchedule('2026-11-07', 3), true);
+  assert.equal(getWeekendScheduleLabel('2026-11-07', 3), 'Sat–Mon');
+
+  // Non-weekend departures
+  assert.equal(isWeekendSchedule('2026-11-03', 3), false); // Tuesday
+  assert.equal(isWeekendSchedule('2026-11-04', 3), false); // Wednesday
+  assert.equal(isWeekendSchedule('2026-11-05', 3), false); // Thursday
+  assert.equal(isWeekendSchedule('2026-11-01', 3), false); // Sunday
+
+  // Departs Friday but ends Tuesday (5 days)
+  assert.equal(isWeekendSchedule('2026-11-06', 5), false);
+});
+
+test('filterPackages with weekend-getaway filter only includes packages departing Fri/Sat and ending Sun/Mon', () => {
+  const weekendPkgs = filterPackages(PACKAGES_DATA, { tripTypes: ['weekend-getaway'] });
+  assert.ok(weekendPkgs.length > 0);
+
+  for (const pkg of weekendPkgs) {
+    assert.equal(pkg.type, 'weekend-getaway');
+    assert.ok(pkg.days <= 3, 'Weekend packages cannot exceed 3 days');
+    assert.ok(pkg.nights <= 2, 'Weekend packages cannot exceed 2 nights');
+
+    const parts = pkg.departureDate.split('-');
+    const depDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+    const depDay = depDate.getDay();
+    assert.ok(depDay === 5 || depDay === 6, `Package ${pkg.title} must depart Friday (5) or Saturday (6), got ${depDay}`);
+
+    const endDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10) + (pkg.days - 1));
+    const endDay = endDate.getDay();
+    assert.ok(endDay === 0 || endDay === 1, `Package ${pkg.title} must end Sunday (0) or Monday (1), got ${endDay}`);
+  }
+});
+

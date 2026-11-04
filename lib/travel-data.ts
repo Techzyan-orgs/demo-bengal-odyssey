@@ -105,7 +105,7 @@ export const DESTINATIONS_DATA: DestinationAccordionItem[] = [
     highlight: 'Wild Rhino & Elephant Safaris',
     image: 'https://images.unsplash.com/photo-1675296098616-53e3d4a1dd57?auto=format&fit=crop&w=1200&q=80',
     gradient: 'from-emerald-950/80 via-teal-950/70 to-slate-900',
-    totalPackages: 3,
+    totalPackages: 4,
   },
   {
     id: 'sundarbans',
@@ -127,7 +127,7 @@ export const DESTINATIONS_DATA: DestinationAccordionItem[] = [
     highlight: 'Bay of Bengal Sunsets & Scuba',
     image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
     gradient: 'from-blue-950/80 via-cyan-950/70 to-slate-900',
-    totalPackages: 3,
+    totalPackages: 4,
   },
   {
     id: 'sikkim-offbeat',
@@ -321,7 +321,7 @@ export const PACKAGES_DATA: PackageItem[] = [
     spotsLeft: 2,
     featured: true,
     isUpcoming: true,
-    departureDate: '2026-11-01', // Leaves Tomorrow!
+    departureDate: '2026-11-06', // Departs Friday, returns Sunday (3D / 2N)
     tags: ['#TigerSafari', '#MangroveCanopy', '#DeltaCruiser', '#EstuarineWildlife'],
     interestCategories: ['Wildlife', 'Boat Safari', 'Heritage'],
     summary: 'Glide quietly into the world’s largest mangrove forest on a custom wooden safari cruiser. Track Royal Bengal Tigers, saltwater crocodiles, and rare mudskippers.',
@@ -733,7 +733,7 @@ export const PACKAGES_DATA: PackageItem[] = [
     spotsLeft: 4,
     featured: false,
     isUpcoming: true,
-    departureDate: '2026-11-04',
+    departureDate: '2026-11-13', // Departs Friday, returns Sunday (3D / 2N)
     tags: ['#MirikLake', '#KurseongHills', '#TeaGarden', '#WeekendEscape'],
     interestCategories: ['Hills', 'Heritage', 'Tea Tasting'],
     summary: 'A refreshing weekend escape into the tranquil pine ridges of Kurseong and the serene waters of Mirik Lake. Experience orthodox tea plucking and cross-border mountain bazaars.',
@@ -941,7 +941,7 @@ export const PACKAGES_DATA: PackageItem[] = [
     spotsLeft: 3,
     featured: false,
     isUpcoming: true,
-    departureDate: '2026-11-03',
+    departureDate: '2026-11-07', // Departs Saturday, returns Monday (3D / 2N)
     tags: ['#MurtiRiver', '#GorumaraSafari', '#IndianRhino', '#WeekendGetaway'],
     interestCategories: ['Wildlife', 'Campfire', 'Weekend Getaway'],
     summary: 'The ultimate quick wildlife getaway from Kolkata. Dip your feet in the cool pebble waters of Murti river, spot wild one-horned rhinos from Jatraprasad, and gather around evening campfires under starry skies.',
@@ -1277,7 +1277,7 @@ export const PACKAGES_DATA: PackageItem[] = [
     spotsLeft: 6,
     featured: false,
     isUpcoming: true,
-    departureDate: '2026-11-02',
+    departureDate: '2026-11-07', // Departs Saturday, returns Sunday (2D / 1N)
     tags: ['#RedCrabBeach', '#TajpurWeekend', '#PineForest', '#QuickEscape'],
     interestCategories: ['Beach', 'Weekend Getaway', 'Campfire'],
     summary: 'The quickest coastal antidote to city stress. Relax beneath tall whispering Casuarina pines, watch the beach turn crimson with thousands of harmless red ghost crabs, and savor freshly fried pomfret right by the waves.',
@@ -1413,7 +1413,7 @@ export const PACKAGES_DATA: PackageItem[] = [
     spotsLeft: 3,
     featured: true,
     isUpcoming: true,
-    departureDate: '2026-11-04',
+    departureDate: '2026-11-20', // Departs Friday, returns Sunday (3D / 2N)
     tags: ['#LuxuryBeach', '#ScubaDiving', '#PrivateVilla', '#CoastalRetreat'],
     interestCategories: ['Luxury Resorts', 'Scuba Diving', 'Beach'],
     summary: 'The ultimate luxury beach escape. Stay in premium private beachfront villas with direct access to the sea. Experience certified beginner scuba diving with professional PADI divemasters over marine coral reefs.',
@@ -1477,7 +1477,7 @@ export const PACKAGES_DATA: PackageItem[] = [
     spotsLeft: 5,
     featured: false,
     isUpcoming: true,
-    departureDate: '2026-11-03',
+    departureDate: '2026-11-06', // Departs Friday, returns Sunday (3D / 2N)
     tags: ['#Kalimpong', '#DeoloHill', '#BuddhistMonastery', '#WeekendHills'],
     interestCategories: ['Hills', 'Heritage', 'Weekend Getaway'],
     summary: 'A peaceful Himalayan weekend retreat. Perch atop Deolo Hill with 360-degree views of Kanchenjunga and the winding Teesta river, listen to Buddhist monks chanting at Durpin monastery, and explore vintage British bungalows.',
@@ -1629,7 +1629,7 @@ export const PACKAGES_DATA: PackageItem[] = [
     spotsLeft: 4,
     featured: false,
     isUpcoming: true,
-    departureDate: '2026-11-03',
+    departureDate: '2026-11-14', // Departs Saturday, returns Monday (3D / 2N)
     trekSpecs: {
       difficulty: 'Easy',
       altitude: '7,887 ft (2,404 m)',
@@ -2056,19 +2056,6 @@ export const GALLERY_PHOTOS = [
 
 export const BEST_SEASONS_DATA = [
   {
-    id: 'sundarbans',
-    destination: 'Sundarbans Delta',
-    bengaliTitle: 'সুন্দরবন শীতকালীন নদী অভিযান',
-    idealMonths: 'October to March',
-    weather: '14°C – 25°C · Crisp morning river mist, calm tide waters and gentle sun',
-    image: 'https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=1200&q=80',
-    gradient: 'from-emerald-950 via-stone-900 to-slate-900',
-    slug: 'sundarbans',
-    whyOptimal: 'During the winter months, royal Bengal tigers frequently step out of dense mangrove thickets to bask under the warm sun on mudflats along the riverbanks during low tides. Estuarine crocodiles and migratory Siberian birds are at peak density, and calm waterways make long boat safaris blissful.',
-    keyActivities: ['Canopy walks at Dobanki', 'Creek boat safari in Pirkhali', 'Tidal mudflat tiger tracking', 'Migratory waterbird watching'],
-    packagesCount: 3,
-  },
-  {
     id: 'darjeeling-hills',
     destination: 'Darjeeling & Hills',
     bengaliTitle: 'দার্জিলিং শরৎ ও বসন্তের রূপ',
@@ -2092,6 +2079,19 @@ export const BEST_SEASONS_DATA = [
     slug: 'dooars-terai',
     whyOptimal: 'Following the mandatory monsoon forest closure (June to September), the national parks re-open in October. The grasslands flourish with lush vegetation, animal waterholes are easily accessible, and morning elephant-back safaris reveal rhinos and gaurs with newborn calves.',
     keyActivities: ['Gorumara Jeep core safaris', 'Jaldapara elephant-back rhino rides', 'Murti riverbank bonfires', 'Rocky Island rock pool swimming'],
+    packagesCount: 4,
+  },
+  {
+    id: 'sundarbans',
+    destination: 'Sundarbans Delta',
+    bengaliTitle: 'সুন্দরবন শীতকালীন নদী অভিযান',
+    idealMonths: 'October to March',
+    weather: '14°C – 25°C · Crisp morning river mist, calm tide waters and gentle sun',
+    image: 'https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=1200&q=80',
+    gradient: 'from-emerald-950 via-stone-900 to-slate-900',
+    slug: 'sundarbans',
+    whyOptimal: 'During the winter months, royal Bengal tigers frequently step out of dense mangrove thickets to bask under the warm sun on mudflats along the riverbanks during low tides. Estuarine crocodiles and migratory Siberian birds are at peak density, and calm waterways make long boat safaris blissful.',
+    keyActivities: ['Canopy walks at Dobanki', 'Creek boat safari in Pirkhali', 'Tidal mudflat tiger tracking', 'Migratory waterbird watching'],
     packagesCount: 3,
   },
   {
@@ -2105,12 +2105,25 @@ export const BEST_SEASONS_DATA = [
     slug: 'coastal-puri',
     whyOptimal: 'Winter and post-monsoon months provide the ideal calm marine conditions for scuba diving, coastal trekking, and dolphin watching in Chilika Lake without monsoon swells or scorching summer heat.',
     keyActivities: ['Beach driving on Mandarmani sands', 'Snorkeling & Scuba off Puri', 'Irrawaddy dolphin catamaran rides', 'Konark Sun Temple heritage walk'],
+    packagesCount: 4,
+  },
+  {
+    id: 'sikkim-offbeat',
+    destination: 'Sikkim & Offbeat',
+    bengaliTitle: 'সিকিম ও পুরাতন রেশম পথ',
+    idealMonths: 'March to May (Rhododendrons) & October to December (Clear Passes)',
+    weather: '-4°C to 15°C · Crisp alpine breeze, snow-dusted passes and deep azure skies',
+    image: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=80',
+    gradient: 'from-indigo-950 via-slate-900 to-sky-950',
+    slug: 'sikkim-offbeat',
+    whyOptimal: 'Spring (March-May) witnesses breathtaking rhododendron blooms throughout Yumthang Valley and Shingba Sanctuary. The post-monsoon autumn and early winter months (October-December) offer uninterrupted, razor-sharp mountain vistas of Kanchenjunga from Zuluk 32 hairpin loops and crystal reflections over holy Gurudongmar Lake.',
+    keyActivities: ['Old Silk Route Zuluk 32-hairpin ascent', 'Sacred Gurudongmar glacial lake expedition', 'Yumthang Valley hot springs & valley of flowers', 'Kalimpong & Deolo paragliding'],
     packagesCount: 3,
   },
   {
     id: 'north-bengal-treks',
-    destination: 'Sandakphu & Singalila Treks',
-    bengaliTitle: 'সান্দাকফু ট্রেকিং সিজন',
+    destination: 'North Bengal Treks & Sandakphu',
+    bengaliTitle: 'সান্দাকফু ও উত্তরবঙ্গের ট্রেকিং সিজন',
     idealMonths: 'October to December (Vistas) & April to May (Blooms)',
     weather: '-2°C to 12°C · Crisp alpine air, zero humidity and deep cobalt skies',
     image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80',

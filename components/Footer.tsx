@@ -2,8 +2,9 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Compass, MapPin, Phone, Mail, MessageCircle, ShieldCheck, Heart } from 'lucide-react';
+import { Compass, MapPin, Phone, Mail, ShieldCheck, Heart } from 'lucide-react';
 import { DESTINATIONS_DATA } from '@/lib/travel-data';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 export function Footer() {
   return (
@@ -92,7 +93,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 text-xs font-semibold hover:bg-emerald-100 dark:hover:bg-emerald-900 transition-colors"
               >
-                <MessageCircle className="w-3.5 h-3.5" />
+                <WhatsAppIcon className="w-3.5 h-3.5 shrink-0" />
                 WhatsApp Expeditions
               </a>
               <a
@@ -158,6 +159,11 @@ export function Footer() {
               <li>
                 <Link href="/gallery" className="hover:text-amber-600 dark:hover:text-amber-300 transition-colors text-stone-600 dark:text-stone-400">
                   Visual Expedition Gallery
+                </Link>
+              </li>
+              <li>
+                <Link href="/#contact-section" className="hover:text-amber-600 dark:hover:text-amber-300 transition-colors text-stone-600 dark:text-stone-400">
+                  Contact & Concierge Desk
                 </Link>
               </li>
             </ul>

@@ -3,10 +3,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Compass, ChevronDown, Menu, X, Phone, MessageCircle, Sparkles, Mountain, Briefcase, Sun, Moon } from 'lucide-react';
+import { Compass, ChevronDown, Menu, X, Phone, Map, Mountain, Briefcase, Sun, Moon } from 'lucide-react';
 import { DESTINATIONS_DATA, PACKAGES_DATA } from '@/lib/travel-data';
 import { QuotationModal } from './QuotationModal';
 import { useTheme } from './ThemeProvider';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -25,15 +26,24 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close dropdown when clicking outside
+  // Close dropdown when clicking outside or pressing Escape
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDestOpen(false);
       }
     }
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setIsDestOpen(false);
+      }
+    }
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
 
   // Close menus on route change during render
@@ -43,6 +53,18 @@ export function Navbar() {
     setIsMobileMenuOpen(false);
     setIsDestOpen(false);
   }
+
+  const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    setIsMobileMenuOpen(false);
+    if (pathname === '/') {
+      e.preventDefault();
+      const target = document.getElementById('contact-section');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.history.pushState(null, '', '#contact-section');
+      }
+    }
+  };
 
   const navLinks = [
     { label: 'Home', href: '/' },
@@ -109,7 +131,7 @@ export function Navbar() {
                 className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-emerald-700 dark:bg-stone-800/80 dark:hover:bg-stone-700/80 dark:text-emerald-400 text-xs font-semibold border border-stone-200 dark:border-stone-700/60 transition-colors shadow-sm"
                 title="Chat with Expedition Lead on WhatsApp"
               >
-                <MessageCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <WhatsAppIcon className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span className="font-mono text-xs">+91 98301 23456</span>
               </a>
 
@@ -118,7 +140,7 @@ export function Navbar() {
                 onClick={() => setIsQuoteModalOpen(true)}
                 className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-amber-500/20 active:scale-95 whitespace-nowrap"
               >
-                <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                <Map className="w-3.5 h-3.5 shrink-0" />
                 <span>Plan Trip</span>
               </button>
 
@@ -154,12 +176,10 @@ export function Navbar() {
               About
             </Link>
 
-            {/* Destination Dropdown */}
+            {/* Destination Dropdown (Click-Only) */}
             <div
               className="relative"
               ref={dropdownRef}
-              onMouseEnter={() => setIsDestOpen(true)}
-              onMouseLeave={() => setIsDestOpen(false)}
             >
               <button
                 type="button"
@@ -271,7 +291,8 @@ export function Navbar() {
 
             <Link
               href="/#contact-section"
-              className="whitespace-nowrap px-2.5 py-1 rounded-lg transition-colors hover:text-amber-600 dark:hover:text-amber-300 hover:bg-stone-100 dark:hover:bg-stone-800/40 text-stone-600 dark:text-stone-300"
+              onClick={handleContactClick}
+              className="whitespace-nowrap px-2.5 py-1 rounded-lg transition-colors hover:text-amber-600 dark:hover:text-amber-300 hover:bg-stone-100 dark:hover:bg-stone-800/40 text-stone-600 dark:text-stone-300 cursor-pointer"
             >
               Contact Us
             </Link>
@@ -357,7 +378,8 @@ export function Navbar() {
               </Link>
               <Link
                 href="/#contact-section"
-                className="block py-2 text-stone-800 dark:text-stone-200 hover:text-amber-600 dark:hover:text-amber-300 font-medium"
+                onClick={handleContactClick}
+                className="block py-2 text-stone-800 dark:text-stone-200 hover:text-amber-600 dark:hover:text-amber-300 font-medium cursor-pointer"
               >
                 Contact Us
               </Link>
@@ -387,9 +409,10 @@ export function Navbar() {
                   setIsMobileMenuOpen(false);
                   setIsQuoteModalOpen(true);
                 }}
-                className="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-center text-xs uppercase tracking-wider"
+                className="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-center text-xs uppercase tracking-wider flex items-center justify-center gap-2"
               >
-                Plan Custom Trip & Quotation
+                <Map className="w-4 h-4 shrink-0" />
+                <span>Plan Custom Trip & Quotation</span>
               </button>
 
               <a
@@ -398,7 +421,7 @@ export function Navbar() {
                 rel="noopener noreferrer"
                 className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-center text-xs flex items-center justify-center gap-2"
               >
-                <MessageCircle className="w-4 h-4" />
+                <WhatsAppIcon className="w-4 h-4 shrink-0" />
                 <span>Chat on WhatsApp (+91 98301 23456)</span>
               </a>
             </div>

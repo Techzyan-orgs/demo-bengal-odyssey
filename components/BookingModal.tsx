@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { X, Check, ShieldCheck, Calendar, Users, CreditCard, ChevronRight, Phone, Mail, User } from 'lucide-react';
 import { PackageItem } from '@/lib/travel-data';
 import { calculateQuotation, formatINR, generateWhatsAppUrl } from '@/lib/travel-logic';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 interface BookingModalProps {
   pkg: PackageItem;
@@ -131,7 +132,8 @@ export function BookingModal({ pkg, isOpen, onClose, initialDate }: BookingModal
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm transition-colors shadow-md"
                 >
-                  Confirm Instant with Captain on WhatsApp
+                  <WhatsAppIcon className="w-4 h-4 shrink-0" />
+                  <span>Confirm Instant with Captain on WhatsApp</span>
                 </a>
                 <button
                   onClick={onClose}

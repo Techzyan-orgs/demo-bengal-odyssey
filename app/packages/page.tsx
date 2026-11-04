@@ -22,7 +22,7 @@ function PackagesExplorerContent() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTypes, setSelectedTypes] = useState<string[]>(initialType ? [initialType] : []);
   const [durationCategory, setDurationCategory] = useState<'all' | '1-2' | '3-5' | '6+'>('all');
-  const [priceMax, setPriceMax] = useState<number>(20000);
+  const [priceMax, setPriceMax] = useState<number>(30000);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [onlyDeals, setOnlyDeals] = useState(false);
   const [onlyUpcoming, setOnlyUpcoming] = useState(initialUpcoming);
@@ -81,7 +81,7 @@ function PackagesExplorerContent() {
     setSearchQuery('');
     setSelectedTypes([]);
     setDurationCategory('all');
-    setPriceMax(25000);
+    setPriceMax(30000);
     setSelectedTags([]);
     setOnlyDeals(false);
     setOnlyUpcoming(false);
@@ -91,6 +91,55 @@ function PackagesExplorerContent() {
     router.push('/packages');
   };
 
+  // Dynamic counts for each destination corridor matching currently active filters
+  const { corridorCounts, totalAvailable } = useMemo(() => {
+    const counts: Record<string, number> = {};
+
+    DESTINATIONS_DATA.forEach((dest) => {
+      const match = filterPackages(PACKAGES_DATA, {
+        destination: dest.id,
+        searchQuery,
+        tripTypes: selectedTypes.length > 0 ? selectedTypes : undefined,
+        durationCategory,
+        maxPrice: priceMax < 30000 ? priceMax : undefined,
+        selectedTags: selectedTags.length > 0 ? selectedTags : undefined,
+        onlyDeals,
+        onlyUpcoming,
+        onlyFeatured,
+        onlyTopRated,
+        onlyLuxury,
+      });
+      counts[dest.id] = match.length;
+    });
+
+    const allMatch = filterPackages(PACKAGES_DATA, {
+      destination: 'all',
+      searchQuery,
+      tripTypes: selectedTypes.length > 0 ? selectedTypes : undefined,
+      durationCategory,
+      maxPrice: priceMax < 30000 ? priceMax : undefined,
+      selectedTags: selectedTags.length > 0 ? selectedTags : undefined,
+      onlyDeals,
+      onlyUpcoming,
+      onlyFeatured,
+      onlyTopRated,
+      onlyLuxury,
+    });
+
+    return { corridorCounts: counts, totalAvailable: allMatch.length };
+  }, [
+    searchQuery,
+    selectedTypes,
+    durationCategory,
+    priceMax,
+    selectedTags,
+    onlyDeals,
+    onlyUpcoming,
+    onlyFeatured,
+    onlyTopRated,
+    onlyLuxury,
+  ]);
+
   // Filtered packages
   const filteredList = useMemo(() => {
     let result = filterPackages(PACKAGES_DATA, {
@@ -98,7 +147,7 @@ function PackagesExplorerContent() {
       searchQuery,
       tripTypes: selectedTypes.length > 0 ? selectedTypes : undefined,
       durationCategory,
-      maxPrice: priceMax,
+      maxPrice: priceMax < 30000 ? priceMax : undefined,
       selectedTags: selectedTags.length > 0 ? selectedTags : undefined,
       onlyDeals,
       onlyUpcoming,
@@ -180,6 +229,8 @@ function PackagesExplorerContent() {
           <DestinationAccordion
             activeDestination={activeDestination}
             onSelectDestination={(slug) => setActiveDestination(slug)}
+            destinationCounts={corridorCounts}
+            totalAllPackages={totalAvailable}
           />
         </div>
 
@@ -287,15 +338,22 @@ function PackagesExplorerContent() {
                 {tripTypeOptions.map((type) => (
                   <label
                     key={type.id}
-                    className="flex items-center gap-2 text-xs text-stone-600 dark:text-stone-300 cursor-pointer hover:text-stone-900 dark:hover:text-white"
+                    className="flex items-start gap-2 text-xs text-stone-600 dark:text-stone-300 cursor-pointer hover:text-stone-900 dark:hover:text-white"
                   >
                     <input
                       type="checkbox"
                       checked={selectedTypes.includes(type.id)}
                       onChange={() => handleTypeToggle(type.id)}
-                      className="rounded text-amber-500 focus:ring-0 bg-stone-50 dark:bg-stone-950 border-stone-300 dark:border-stone-700"
+                      className="rounded text-amber-500 focus:ring-0 bg-stone-50 dark:bg-stone-950 border-stone-300 dark:border-stone-700 mt-0.5"
                     />
-                    <span>{type.label}</span>
+                    <div className="flex flex-col">
+                      <span>{type.label}</span>
+                      {type.id === 'weekend-getaway' && (
+                        <span className="text-[10px] text-amber-600 dark:text-amber-400 font-medium">
+                          Departs Fri/Sat · Ends Sun/Mon
+                        </span>
+                      )}
+                    </div>
                   </label>
                 ))}
               </div>
@@ -335,20 +393,22 @@ function PackagesExplorerContent() {
                 <span className="font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wider">
                   Max Budget
                 </span>
-                <span className="font-bold text-amber-600 dark:text-amber-400">{formatINR(priceMax)}</span>
+                <span className="font-bold text-amber-600 dark:text-amber-400">
+                  {priceMax >= 30000 ? 'All Budgets (₹30,000+)' : formatINR(priceMax)}
+                </span>
               </div>
               <input
                 type="range"
-                min="5000"
-                max="25000"
+                min="3000"
+                max="30000"
                 step="500"
                 value={priceMax}
                 onChange={(e) => setPriceMax(parseInt(e.target.value))}
                 className="w-full accent-amber-500 bg-stone-200 dark:bg-stone-800 h-1.5 rounded-lg cursor-pointer"
               />
               <div className="flex justify-between text-[10px] text-stone-500 dark:text-stone-400 mt-1">
-                <span>₹5,000</span>
-                <span>₹25,000+</span>
+                <span>₹3,000</span>
+                <span>₹30,000+</span>
               </div>
             </div>
 
@@ -417,6 +477,7 @@ function PackagesExplorerContent() {
               selectedTypes.length > 0 ||
               selectedTags.length > 0 ||
               durationCategory !== 'all' ||
+              priceMax < 30000 ||
               onlyDeals ||
               onlyUpcoming ||
               onlyFeatured ||
@@ -429,6 +490,15 @@ function PackagesExplorerContent() {
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">
                     Destination: {activeDestinationObject?.title}
                     <button onClick={() => setActiveDestination('all')} className="hover:text-stone-950 dark:hover:text-white">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                )}
+
+                {priceMax < 30000 && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700">
+                    Budget: Up to {formatINR(priceMax)}
+                    <button onClick={() => setPriceMax(30000)} className="hover:text-stone-950 dark:hover:text-white">
                       <X className="w-3 h-3" />
                     </button>
                   </span>
@@ -635,14 +705,21 @@ function PackagesExplorerContent() {
               </span>
               <div className="space-y-2">
                 {tripTypeOptions.map((type) => (
-                  <label key={type.id} className="flex items-center gap-2 text-xs text-stone-600 dark:text-stone-300 cursor-pointer">
+                  <label key={type.id} className="flex items-start gap-2 text-xs text-stone-600 dark:text-stone-300 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={selectedTypes.includes(type.id)}
                       onChange={() => handleTypeToggle(type.id)}
-                      className="rounded text-amber-500"
+                      className="rounded text-amber-500 mt-0.5"
                     />
-                    <span>{type.label}</span>
+                    <div className="flex flex-col">
+                      <span>{type.label}</span>
+                      {type.id === 'weekend-getaway' && (
+                        <span className="text-[10px] text-amber-600 dark:text-amber-400 font-medium">
+                          Departs Fri/Sat · Ends Sun/Mon
+                        </span>
+                      )}
+                    </div>
                   </label>
                 ))}
               </div>
@@ -670,6 +747,31 @@ function PackagesExplorerContent() {
                     {dur.label}
                   </button>
                 ))}
+              </div>
+            </div>
+
+            {/* Price Slider (Mobile) */}
+            <div>
+              <div className="flex justify-between items-center mb-1.5 text-xs">
+                <span className="font-semibold text-stone-700 dark:text-stone-300 uppercase tracking-wider">
+                  Max Budget
+                </span>
+                <span className="font-bold text-amber-600 dark:text-amber-400">
+                  {priceMax >= 30000 ? 'All Budgets (₹30,000+)' : formatINR(priceMax)}
+                </span>
+              </div>
+              <input
+                type="range"
+                min="3000"
+                max="30000"
+                step="500"
+                value={priceMax}
+                onChange={(e) => setPriceMax(parseInt(e.target.value))}
+                className="w-full accent-amber-500 bg-stone-200 dark:bg-stone-800 h-1.5 rounded-lg cursor-pointer"
+              />
+              <div className="flex justify-between text-[10px] text-stone-500 dark:text-stone-400 mt-1">
+                <span>₹3,000</span>
+                <span>₹30,000+</span>
               </div>
             </div>
 

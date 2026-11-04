@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, Send, CheckCircle2, MessageCircle, Calendar, Users, MapPin, Sparkles } from 'lucide-react';
+import { X, Send, CheckCircle2, Calendar, Users, MapPin, Sparkles } from 'lucide-react';
 import { DESTINATIONS_DATA } from '@/lib/travel-data';
 import { generateWhatsAppUrl } from '@/lib/travel-logic';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 interface QuotationModalProps {
   isOpen: boolean;
@@ -119,7 +120,7 @@ export function QuotationModal({
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm transition-colors shadow-md"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <WhatsAppIcon className="w-4 h-4 shrink-0" />
                   Connect on WhatsApp Now
                 </a>
                 <button
@@ -307,7 +308,7 @@ export function QuotationModal({
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto py-3 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm transition-all shadow-md flex items-center justify-center gap-2"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <WhatsAppIcon className="w-4 h-4 shrink-0" />
                   <span>Enquire on WhatsApp</span>
                 </a>
               </div>

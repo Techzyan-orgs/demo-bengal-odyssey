@@ -12,11 +12,10 @@ import {
   ShieldCheck,
   CheckCircle2,
   XCircle,
-  MessageCircle,
   Star,
   Flame,
   ChevronRight,
-  Sparkles,
+  Tag,
   ArrowLeft,
   Share2,
 } from 'lucide-react';
@@ -24,6 +23,7 @@ import { PACKAGES_DATA, PackageItem } from '@/lib/travel-data';
 import { calculatePackageUrgency, formatINR, generateWhatsAppUrl } from '@/lib/travel-logic';
 import { SafeImage } from '@/components/SafeImage';
 import { BookingModal } from '@/components/BookingModal';
+import { WhatsAppIcon } from '@/components/WhatsAppIcon';
 
 export default function PackageDetailPage() {
   const params = useParams();
@@ -514,7 +514,15 @@ export default function PackageDetailPage() {
                   )}
                   <span className="text-xs text-stone-500 dark:text-stone-400">/ traveler</span>
                 </div>
-                <div className="text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold mt-1 flex items-center gap-1">
+                {pkg.earlyBirdOffer && (
+                  <div className="mt-2">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+                      <Tag className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                      <span>Early Bird Offer Applied</span>
+                    </span>
+                  </div>
+                )}
+                <div className="text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold mt-2 flex items-center gap-1">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   Guaranteed Departure & 15% Token Lock
                 </div>
@@ -573,7 +581,7 @@ export default function PackageDetailPage() {
                   rel="noopener noreferrer"
                   className="w-full py-3 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-colors shadow-md flex items-center justify-center gap-2"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <WhatsAppIcon className="w-4 h-4 shrink-0" />
                   <span>Enquire on WhatsApp</span>
                 </a>
               </div>

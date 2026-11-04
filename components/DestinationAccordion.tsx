@@ -8,13 +8,17 @@ import { Compass, ArrowRight } from 'lucide-react';
 interface DestinationAccordionProps {
   activeDestination: string; // 'all' or destination slug
   onSelectDestination: (slug: string) => void;
+  destinationCounts?: Record<string, number>;
+  totalAllPackages?: number;
 }
 
 export function DestinationAccordion({
   activeDestination,
   onSelectDestination,
+  destinationCounts,
+  totalAllPackages: propTotalAll,
 }: DestinationAccordionProps) {
-  const totalAllPackages = PACKAGES_DATA.length;
+  const totalAllPackages = propTotalAll !== undefined ? propTotalAll : PACKAGES_DATA.length;
 
   return (
     <div className="w-full space-y-3">
@@ -31,7 +35,9 @@ export function DestinationAccordion({
           All Bengal ({totalAllPackages})
         </button>
         {DESTINATIONS_DATA.map((dest) => {
-          const count = PACKAGES_DATA.filter((p) => p.destination === dest.id).length;
+          const count = destinationCounts?.[dest.id] !== undefined
+            ? destinationCounts[dest.id]
+            : PACKAGES_DATA.filter((p) => p.destination === dest.id).length;
           return (
             <button
               key={dest.id}
@@ -61,22 +67,37 @@ export function DestinationAccordion({
         >
           <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-900/80 to-transparent dark:from-stone-950 dark:via-stone-900/80" />
           <div className="relative z-10">
-            <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center mb-2 border border-amber-500/30">
-              <Compass className="w-4 h-4" />
+            <div className="flex items-center justify-between mb-2">
+              <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
+                <Compass className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] font-mono text-stone-300 bg-stone-800/70 px-1.5 py-0.5 rounded">
+                {String(totalAllPackages).padStart(2, '0')}
+              </span>
             </div>
             <h4 className="text-sm font-bold text-white whitespace-nowrap">
               All Bengal
             </h4>
             <p className="text-[11px] text-stone-300 dark:text-stone-400 mt-1 line-clamp-2">
-              Browse all tours from sea to summit
+              Browse all {totalAllPackages} tours from sea to summit
             </p>
+            {activeDestination === 'all' && (
+              <div className="mt-2.5 pt-2 border-t border-white/20">
+                <span className="inline-flex items-center gap-1 font-bold text-xs text-white bg-amber-600/90 px-2 py-0.5 rounded-lg shadow-sm">
+                  <span>{totalAllPackages} {totalAllPackages === 1 ? 'Package' : 'Packages'}</span>
+                  <ArrowRight className="w-3 h-3" />
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Destination Items */}
         {DESTINATIONS_DATA.map((dest) => {
           const isActive = activeDestination === dest.slug;
-          const pkgCount = PACKAGES_DATA.filter((p) => p.destination === dest.id).length;
+          const pkgCount = destinationCounts?.[dest.id] !== undefined
+            ? destinationCounts[dest.id]
+            : PACKAGES_DATA.filter((p) => p.destination === dest.id).length;
 
           return (
             <div
@@ -127,7 +148,7 @@ export function DestinationAccordion({
                       {dest.highlight}
                     </span>
                     <span className="inline-flex items-center gap-1 font-bold text-white bg-amber-600/80 px-2.5 py-1 rounded-lg">
-                      <span>{pkgCount} Packages</span>
+                      <span>{pkgCount} {pkgCount === 1 ? 'Package' : 'Packages'}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>

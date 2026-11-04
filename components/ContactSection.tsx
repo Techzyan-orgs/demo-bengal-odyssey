@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
-import { MapPin, Phone, Mail, MessageCircle, Send, CheckCircle2, Clock, ShieldCheck, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { MapPin, Phone, Mail, Send, CheckCircle2, Clock, ShieldCheck, Sparkles } from 'lucide-react';
 import { DESTINATIONS_DATA } from '@/lib/travel-data';
 import { generateWhatsAppUrl } from '@/lib/travel-logic';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 export function ContactSection() {
   const [fullName, setFullName] = useState('');
@@ -28,6 +29,19 @@ export function ContactSection() {
     }, 500);
   };
 
+  // Smooth scroll into view when arriving via hash or route navigation
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash === '#contact-section') {
+      const timer = setTimeout(() => {
+        const el = document.getElementById('contact-section');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   const selectedDest = DESTINATIONS_DATA.find((d) => d.id === destination);
   const destName = selectedDest ? selectedDest.title : 'Bengal Odyssey Tour';
   const whatsappUrl = generateWhatsAppUrl(
@@ -38,7 +52,7 @@ export function ContactSection() {
   );
 
   return (
-    <section id="contact-section" className="py-20 bg-stone-100 dark:bg-stone-900 text-stone-900 dark:text-white relative overflow-hidden transition-colors">
+    <section id="contact-section" className="scroll-mt-16 sm:scroll-mt-24 py-20 bg-stone-100 dark:bg-stone-900 text-stone-900 dark:text-white relative overflow-hidden transition-colors">
       {/* Background glow styling */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -65,8 +79,8 @@ export function ContactSection() {
               <div className="p-6 rounded-2xl bg-gradient-to-br from-emerald-950 via-teal-900 to-stone-900 border border-emerald-500/40 shadow-xl relative overflow-hidden text-white">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-md">
-                    <MessageCircle className="w-6 h-6" />
+                  <div className="w-12 h-12 rounded-xl bg-[#25D366] text-white flex items-center justify-center shadow-md shadow-emerald-950/40 shrink-0">
+                    <WhatsAppIcon className="w-7 h-7 text-white" />
                   </div>
                   <div>
                     <h3 className="text-base font-bold text-white">
@@ -86,7 +100,7 @@ export function ContactSection() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-95"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <WhatsAppIcon className="w-4 h-4 shrink-0" />
                   <span>Start WhatsApp Chat (+91 98301 23456)</span>
                 </a>
               </div>
@@ -160,7 +174,7 @@ export function ContactSection() {
                     rel="noopener noreferrer"
                     className="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-bold text-xs uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2"
                   >
-                    <MessageCircle className="w-4 h-4" />
+                    <WhatsAppIcon className="w-4 h-4 shrink-0" />
                     Speed up via WhatsApp
                   </a>
                   <button

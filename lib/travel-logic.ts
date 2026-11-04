@@ -88,6 +88,52 @@ export interface FilterOptions {
   onlyLuxury?: boolean;
 }
 
+/**
+ * Validates whether a package schedule satisfies the Weekend Getaway rule:
+ * - Departs on Friday (5) or Saturday (6) of the calendar week
+ * - Ends by Sunday (0) or Monday (1) of the calendar week
+ */
+export function isWeekendSchedule(departureDateStr: string, days: number): boolean {
+  if (!departureDateStr || typeof days !== 'number' || days < 1) return false;
+  const parts = departureDateStr.split('-');
+  if (parts.length < 3) return false;
+  const year = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10) - 1;
+  const date = parseInt(parts[2], 10);
+
+  const depDate = new Date(year, month, date);
+  const depDay = depDate.getDay(); // 0 = Sun, 1 = Mon, ..., 5 = Fri, 6 = Sat
+
+  // 1. Must depart on Friday (5) or Saturday (6) of the calendar week
+  if (depDay !== 5 && depDay !== 6) return false;
+
+  // 2. Must end by Sunday (0) or Monday (1) of the calendar week
+  const endDate = new Date(year, month, date + (days - 1));
+  const endDay = endDate.getDay();
+
+  if (endDay !== 0 && endDay !== 1) return false;
+
+  // 3. Must be within the immediate weekend scope (2 to 4 days max)
+  if (days < 2 || days > 4) return false;
+
+  return true;
+}
+
+/**
+ * Returns formatted schedule label like 'Fri–Sun', 'Sat–Mon', 'Sat–Sun'
+ */
+export function getWeekendScheduleLabel(departureDateStr: string, days: number): string | null {
+  if (!isWeekendSchedule(departureDateStr, days)) return null;
+  const parts = departureDateStr.split('-');
+  const year = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10) - 1;
+  const date = parseInt(parts[2], 10);
+  const depDate = new Date(year, month, date);
+  const endDate = new Date(year, month, date + (days - 1));
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  return `${dayNames[depDate.getDay()]}–${dayNames[endDate.getDay()]}`;
+}
+
 export function filterPackages(packages: PackageItem[], filters: FilterOptions): PackageItem[] {
   return packages.filter((pkg) => {
     // Search query matches title, tagline, locations, or summary
@@ -112,14 +158,24 @@ export function filterPackages(packages: PackageItem[], filters: FilterOptions):
 
     // Trip type filter
     if (filters.tripTypes && filters.tripTypes.length > 0) {
-      // If user selected weekend getaway, strictly reject packages > 3 days (or > 2 nights)
       const selectedIncludesWeekend = filters.tripTypes.includes('weekend-getaway');
       if (selectedIncludesWeekend && !filters.tripTypes.includes(pkg.type)) {
         return false;
       }
-      if (pkg.type === 'weekend-getaway' && (pkg.days > 3 || pkg.nights > 2)) {
-        return false;
+
+      // Weekend Getaway filter strictly requires:
+      // 1. Can be completed within a weekend (max 3 days, max 2 nights)
+      // 2. Departs on Friday or Saturday of the calendar week
+      // 3. Ends by Sunday or Monday of the calendar week
+      if (pkg.type === 'weekend-getaway') {
+        if (pkg.days > 3 || pkg.nights > 2) {
+          return false;
+        }
+        if (!isWeekendSchedule(pkg.departureDate, pkg.days)) {
+          return false;
+        }
       }
+
       if (!filters.tripTypes.includes(pkg.type)) {
         return false;
       }
